@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "TuSDKBeauty"
   s.version      = "0.0.1"
-  s.summary      = "A short description of TuSDKBeauty."
+  s.summary      = "TuSDKBeauty is base on TuSDK framework"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
+TODO: Add long description of the pod here.
                    DESC
 
   s.homepage     = "https://github.com/tangxiangbo/TuSDKBeauty"
@@ -37,8 +38,8 @@ Pod::Spec.new do |s|
   #  CocoaPods will detect a license file if there is a named LICENSE*
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
-
-  s.license      = "MIT (example)"
+  s.license      = "MIT"
+  #s.license      = "MIT (example)"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
@@ -90,10 +91,34 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "TuSDK", "Classes/**/*.{h,m}"
-  s.exclude_files = "TuSDK/Exclude"
+  s.subspec 'GPUImage' do |g|
+    g.vendored_frameworks   = 'GPUImage.framework'
+  end
 
-  # s.public_header_files = "TuSDK/**/*.h"
+  s.subspec 'Core' do |c|
+    c.vendored_frameworks = 'TuSDK.framework'
+  end
+
+  s.subspec 'LIBYUV' do |y|
+    y.vendored_frameworks = 'libyuv.framework'
+  end
+
+  s.subspec 'TuSDKFace' do |t|
+    t.vendored_frameworks = 'TuSDKFace.framework'
+  end
+
+  s.subspec 'TuSDKVideo' do |t|
+    t.vendored_frameworks = 'TuSDKVideo.framework'
+  end
+
+
+  s.source_files  = "TuSDK/**/*.{h,m}"
+  s.exclude_files = "TuSDK/Exclude"
+  s.resource_bundle = {
+      'TuSDK' => ['TuSDK/TuSDK.bundle/*']
+  }
+
+  s.public_header_files = "TuSDK/**/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -117,7 +142,7 @@ Pod::Spec.new do |s|
   #
 
   # s.framework  = "SomeFramework"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
+  # s.frameworks = "GPUImage", "libyuv", "TuSDK", "TuSDKFace", "TuSDKVideo"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"
